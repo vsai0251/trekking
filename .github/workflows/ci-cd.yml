@@ -21,6 +21,9 @@ jobs:
   build-test-package:
     name: Build, Test, and Package
     runs-on: ubuntu-latest
+    env:
+      SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+      SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
 
     steps:
       - name: Checkout source
@@ -53,14 +56,37 @@ jobs:
           retention-days: 14
 
       - name: SonarQube scan
-        if: ${{ vars.SONAR_HOST_URL != '' && secrets.SONAR_TOKEN != '' }}
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
+        if: ${{ env.SONAR_HOST_URL != '' && env.SONAR_TOKEN != '' }}
         run: >
           mvn --batch-mode sonar:sonar
           -Dsonar.host.url=${SONAR_HOST_URL}
           -Dsonar.token=${SONAR_TOKEN}
+
+  deploy-to-azure:
+    name: Deploy To Azure Web App
+    if: github.event_name != 'pull_request'
+    needs: build-test-package
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+
+    steps:
+      - name: Download packaged WAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: trailstay-war
+          path: artifact
+
+      - name: Azure login
+        uses: azure/login@v2
+        with:
+          creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+      - name: Deploy WAR to Azure Web App
+        uses: azure/webapps-deploy@v3
+        with:
+          app-name: trekking-web
+          package: artifact/*.war
 
   publish-release-artifact:
     name: Publish Release Artifact
