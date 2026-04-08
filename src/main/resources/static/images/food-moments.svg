@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 700" fill="none">
+  <rect width="900" height="700" rx="40" fill="#FFF7EE"/>
+  <path d="M80 469C196 365 351 334 470 365C617 404 684 526 820 546V700H80V469Z" fill="#E4D1B5"/>
+  <path d="M97 301L207 165L318 301H97Z" fill="#7C9B62"/>
+  <path d="M271 332L439 132L609 332H271Z" fill="#5B7755"/>
+  <path d="M566 310L681 186L795 310H566Z" fill="#7C9B62"/>
+  <circle cx="720" cy="118" r="45" fill="#F4C97A"/>
+  <rect x="210" y="380" width="470" height="152" rx="30" fill="#FDF8F1"/>
+  <ellipse cx="445" cy="453" rx="160" ry="48" fill="#CC7A3B"/>
+  <ellipse cx="445" cy="453" rx="122" ry="30" fill="#F4C78A"/>
+  <circle cx="396" cy="444" r="12" fill="#4A6A48"/>
+  <circle cx="429" cy="430" r="12" fill="#C8533A"/>
+  <circle cx="469" cy="450" r="12" fill="#4A6A48"/>
+  <circle cx="497" cy="437" r="12" fill="#C8533A"/>
+  <circle cx="266" cy="338" r="36" fill="#F3D1B0"/>
+  <path d="M223 420C223 389.072 248.072 364 279 364C309.928 364 335 389.072 335 420V507H223V420Z" fill="#D68C3E"/>
+  <circle cx="631" cy="333" r="36" fill="#F3D1B0"/>
+  <path d="M588 417C588 386.072 613.072 361 644 361C674.928 361 700 386.072 700 417V507H588V417Z" fill="#546E48"/>
+  <path d="M305 400L356 435" stroke="#6E4A29" stroke-width="10" stroke-linecap="round"/>
+  <path d="M587 400L536 435" stroke="#6E4A29" stroke-width="10" stroke-linecap="round"/>
+</svg>

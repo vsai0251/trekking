@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrailStay | Trek, Taste, Stay</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<header class="hero">
+    <nav class="nav shell">
+        <div class="brand">TrailStay</div>
+        <div class="nav-links">
+            <a href="#treks">Treks</a>
+            <a href="#food">Local Food</a>
+            <a href="#stays">Rooms</a>
+            <a href="#book">Book</a>
+        </div>
+    </nav>
+    <section class="hero-content shell">
+        <div class="hero-copy">
+            <p class="eyebrow">Trek, taste, stay</p>
+            <h1>Mountain trails, local food moments, and room bookings in one Java website.</h1>
+            <p class="hero-text">Explore handpicked trekking locations, discover regional dishes, and reserve stays close to each basecamp with a smooth booking flow.</p>
+            <div class="hero-actions">
+                <a class="button button-primary" href="#book">Book your stay</a>
+                <a class="button button-secondary" href="#treks">Explore trails</a>
+            </div>
+        </div>
+        <div class="hero-visual">
+            <img src="/images/hero-food-trek.svg" alt="Trekkers enjoying mountain food after a hike">
+        </div>
+    </section>
+</header>
+
+<main>
+    <section id="treks" class="section shell">
+        <div class="section-heading">
+            <p class="eyebrow">Featured routes</p>
+            <h2>Trekking locations worth building a trip around</h2>
+        </div>
+        <div class="card-grid">
+            <article class="destination-card" th:each="destination : ${destinations}">
+                <img th:src="${destination.imagePath}" th:alt="${destination.name}">
+                <div class="card-body">
+                    <p class="meta" th:text="${destination.region}">Region</p>
+                    <h3 th:text="${destination.name}">Destination</h3>
+                    <p class="badge" th:text="${destination.trekDuration}">Trek Duration</p>
+                    <p th:text="${destination.description}">Description</p>
+                    <p class="highlight" th:text="${destination.highlight}">Highlight</p>
+                    <div class="pill-list">
+                        <span th:each="experience : ${destination.experiences}" th:text="${experience}">Experience</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="food" class="section section-alt">
+        <div class="shell food-layout">
+            <div class="food-copy">
+                <p class="eyebrow">Taste the trail</p>
+                <h2>Every trek comes with a local table worth staying for.</h2>
+                <p>After a long day outdoors, the trip should still feel alive. This concept includes food-focused travel moments so visitors can connect with local culture, warm kitchens, and village flavors.</p>
+                <div class="food-columns">
+                    <div class="food-list" th:each="destination : ${destinations}">
+                        <h3 th:text="${destination.name}">Destination</h3>
+                        <p class="meta" th:text="${destination.region}">Region</p>
+                        <ul>
+                            <li th:each="food : ${destination.foods}" th:text="${food}">Food item</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="food-gallery">
+                <img src="/images/food-moments.svg" alt="Travelers sharing local food after trekking">
+            </div>
+        </div>
+    </section>
+
+    <section id="stays" class="section shell">
+        <div class="section-heading">
+            <p class="eyebrow">Stay nearby</p>
+            <h2>Room options designed for trekkers and weekend travelers</h2>
+        </div>
+        <div class="stay-grid">
+            <article class="stay-card" th:each="lodge : ${lodges}">
+                <img th:src="${lodge.imagePath}" th:alt="${lodge.name}">
+                <div class="card-body">
+                    <h3 th:text="${lodge.name}">Lodge Name</h3>
+                    <p class="meta" th:text="${lodge.location}">Location</p>
+                    <p th:text="${lodge.description}">Description</p>
+                    <p class="price">INR <span th:text="${lodge.pricePerNight}">0</span> / night</p>
+                    <div class="pill-list">
+                        <span th:each="amenity : ${lodge.amenities}" th:text="${amenity}">Amenity</span>
+                    </div>
+                </div>
+            </article>
+        </div>
+    </section>
+
+    <section id="book" class="section booking-section">
+        <div class="shell booking-layout">
+            <div class="booking-copy">
+                <p class="eyebrow">Reserve now</p>
+                <h2>Book a room for your trekking getaway</h2>
+                <p>Use the form to capture guest details, destination, room preference, and trip dates. This sample booking flow is ready to extend with payment or database storage later.</p>
+            </div>
+            <form class="booking-form" th:action="@{/booking}" th:object="${bookingForm}" method="post">
+                <label>
+                    Full name
+                    <input type="text" th:field="*{guestName}" placeholder="Your name">
+                    <span class="error" th:if="${#fields.hasErrors('guestName')}" th:errors="*{guestName}"></span>
+                </label>
+                <label>
+                    Email
+                    <input type="email" th:field="*{email}" placeholder="you@example.com">
+                    <span class="error" th:if="${#fields.hasErrors('email')}" th:errors="*{email}"></span>
+                </label>
+                <label>
+                    Trekking destination
+                    <select th:field="*{destinationName}">
+                        <option value="">Select a destination</option>
+                        <option th:each="destination : ${destinations}" th:value="${destination.name}" th:text="${destination.name}"></option>
+                    </select>
+                    <span class="error" th:if="${#fields.hasErrors('destinationName')}" th:errors="*{destinationName}"></span>
+                </label>
+                <label>
+                    Room stay
+                    <select th:field="*{lodgeName}">
+                        <option value="">Select a stay</option>
+                        <option th:each="lodge : ${lodges}" th:value="${lodge.name}" th:text="${lodge.name}"></option>
+                    </select>
+                    <span class="error" th:if="${#fields.hasErrors('lodgeName')}" th:errors="*{lodgeName}"></span>
+                </label>
+                <div class="split">
+                    <label>
+                        Check-in
+                        <input type="date" th:field="*{checkIn}">
+                        <span class="error" th:if="${#fields.hasErrors('checkIn')}" th:errors="*{checkIn}"></span>
+                    </label>
+                    <label>
+                        Check-out
+                        <input type="date" th:field="*{checkOut}">
+                        <span class="error" th:if="${#fields.hasErrors('checkOut')}" th:errors="*{checkOut}"></span>
+                    </label>
+                </div>
+                <label>
+                    Guests
+                    <input type="number" min="1" max="8" th:field="*{guests}">
+                    <span class="error" th:if="${#fields.hasErrors('guests')}" th:errors="*{guests}"></span>
+                </label>
+                <label>
+                    Special request
+                    <textarea rows="4" th:field="*{specialRequest}" placeholder="Campfire dinner, pickup help, food preferences..."></textarea>
+                </label>
+                <button class="button button-primary" type="submit">Confirm booking</button>
+            </form>
+        </div>
+    </section>
+</main>
+</body>
+</html>

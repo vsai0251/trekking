@@ -1,0 +1,7 @@
+com\trekker\trailstay\model\Lodge.class
+com\trekker\trailstay\TrailStayApplication.class
+com\trekker\trailstay\service\TravelCatalogService.class
+com\trekker\trailstay\model\BookingForm.class
+com\trekker\trailstay\model\BookingConfirmation.class
+com\trekker\trailstay\model\Destination.class
+com\trekker\trailstay\controller\HomeController.class

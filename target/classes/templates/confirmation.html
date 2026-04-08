@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TrailStay | Booking Confirmed</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body class="confirmation-page">
+<main class="shell confirmation-shell">
+    <section class="confirmation-card">
+        <p class="eyebrow">Booking complete</p>
+        <h1>See you on the trail, <span th:text="${confirmation.guestName}">Guest</span>.</h1>
+        <p>Your room booking has been recorded for a trek-and-stay experience with local food moments included in the trip mood.</p>
+
+        <div class="confirmation-grid">
+            <div>
+                <h2>Booking reference</h2>
+                <p th:text="${confirmation.bookingId}">TRK-00000000</p>
+            </div>
+            <div>
+                <h2>Destination</h2>
+                <p th:text="${confirmation.destinationName}">Destination</p>
+            </div>
+            <div>
+                <h2>Stay</h2>
+                <p th:text="${confirmation.lodgeName}">Stay</p>
+            </div>
+            <div>
+                <h2>Guests</h2>
+                <p th:text="${confirmation.guests}">1</p>
+            </div>
+            <div>
+                <h2>Check-in</h2>
+                <p th:text="${confirmation.checkIn}">2026-04-08</p>
+            </div>
+            <div>
+                <h2>Check-out</h2>
+                <p th:text="${confirmation.checkOut}">2026-04-10</p>
+            </div>
+            <div>
+                <h2>Nights</h2>
+                <p th:text="${confirmation.nights}">2</p>
+            </div>
+            <div>
+                <h2>Special request</h2>
+                <p th:text="${confirmation.specialRequest != null && !confirmation.specialRequest.isBlank() ? confirmation.specialRequest : 'No special requests added.'}">No requests</p>
+            </div>
+        </div>
+
+        <a class="button button-primary" th:href="@{/}">Back to home</a>
+    </section>
+</main>
+</body>
+</html>
